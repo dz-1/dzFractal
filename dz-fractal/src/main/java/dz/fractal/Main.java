@@ -44,7 +44,9 @@ public class Main {
 				
 				x = y1 - Math.signum(x1) * Math.sqrt(Math.abs(4 * x1 - 60));
 				y = 1 - x1;
-				g.drawLine((int) (x) + w, (int) (y) + h, (int) (x) + w, (int) (y) + h);
+
+				drawDot(g, x, y, w, h, screenSize.width, screenSize.height);
+				
 				x1 = x;
 				y1 = y;
 			}
@@ -63,5 +65,11 @@ public class Main {
 		}
 		*/
 		 
+	}
+	
+	private void drawDot(Graphics g, double x, double y, int w, int h, int width, int height) {
+		if (x+w<width && y+h<height) {
+			g.drawLine((int) (x) + w, (int) (y) + h, (int) (x) + w, (int) (y) + h);				
+		}
 	}
 }
