@@ -13,7 +13,7 @@ public class FractalDisplayer {
 		frame.setUndecorated(true);
 		frame.setLocationRelativeTo(null);
 		frame.setExtendedState(Frame.MAXIMIZED_BOTH);
-		frame.setBackground(Color.WHITE);
+		frame.setBackground(Color.BLACK);
 		
 		frame.addWindowListener(new WindowAdapter() {
 	         public void windowClosing(WindowEvent windowEvent){

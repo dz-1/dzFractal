@@ -1,8 +1,8 @@
 package dz.fractal.recursive;
 
-import java.util.function.Consumer;
-
-import dz.fractal.model.Dot;
+import java.awt.geom.Line2D;
+import java.awt.geom.Line2D.Double;
+import java.util.function.BiConsumer;
 
 public class Example {
 	private final int a, b, c, num;
@@ -14,7 +14,7 @@ public class Example {
 		this.num = num;
 	}
 	
-	public void paint(Consumer<Dot> painter) {
+	public void paint(BiConsumer<Integer, Line2D> painter) {
 		double x = 0, y = 0;
 		double x1 = 0, y1 = 0;
 		
@@ -22,7 +22,7 @@ public class Example {
 			x = y1 - Math.signum(x1) * Math.sqrt(Math.abs(b * x1 - c));
 			y = a - x1;
 	
-			painter.accept(Dot.builder().index(i).x(x).y(y).build());
+			painter.accept(i, new Double(x, y, x, y));
 			
 			x1 = x;
 			y1 = y;

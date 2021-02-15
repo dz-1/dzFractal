@@ -1,9 +1,9 @@
 package dz.fractal.recursive;
 
-import java.awt.Point;
+import java.awt.geom.Line2D;
+import java.awt.geom.Line2D.Double;
 import java.util.function.Consumer;
 
-import dz.fractal.model.Line;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -12,17 +12,16 @@ public class Cantor {
 	private final double ax, ay, bx, by;
 	private final int lineHeight;
 	
-	public void paint(Consumer<Line> painter) {
+	public void paint(Consumer<Line2D> painter) {
 		drawLine(ax, ay, bx, by, painter);
 	}
 	
-	protected void drawLine(double ax, double ay, double bx, double by, Consumer<Line> painter) {
+	protected void drawLine(double ax, double ay, double bx, double by, Consumer<Line2D> painter) {
 		if (bx-ax<MIN_LENGTH) {
-			painter.accept(Line.builder().start(new Point((int)ax, (int)ay)).end(new Point ((int)bx, (int)by)).build());
+			painter.accept(new Double(ax, ay, bx, by));
 		}else {
 			double cx, cy, dx, dy;
-			
-			painter.accept(Line.builder().start(new Point((int)ax, (int)ay)).end(new Point ((int)bx, (int)by)).build());
+			painter.accept(new Double(ax, ay, bx, by));
 			
 			double span = (bx-ax)/3;
 			

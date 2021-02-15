@@ -6,15 +6,14 @@ import java.awt.Graphics;
 
 import dz.fractal.recursive.Cantor;
 import dz.fractal.recursive.Example;
+import dz.fractal.recursive.KochSnowflake;
 
 @SuppressWarnings("serial")
 public class DrawFrame extends Frame {
 	private final static Color[] RAIN_BOW = {Color.RED, Color.ORANGE, Color.YELLOW, Color.GREEN, Color.BLUE, new Color(75,0,130), new Color(102,0,153)};
 	
 	public void paint(Graphics g) {
-		//drawExample(g, getWidth(), getHeight());
-		
-		drawCantor(g, getWidth(), getHeight());
+		drawKochSnowflake(g, getWidth(), getHeight());
 	}
 	
 	protected void drawDot(Graphics g, double x, double y, int w, int h, int width, int height) {
@@ -36,19 +35,33 @@ public class DrawFrame extends Frame {
 
 		Example ex = new Example(1, 4, 60, 1000000);
 		
-		ex.paint(dot->{
-			int k = dot.getIndex()%7;
+		ex.paint((i, line)->{
+			int k = i%7;
 			g.setColor(RAIN_BOW[k]);
 			
-			drawDot(g, dot.getX(), dot.getY(), w, h, width, height);
+			drawDot(g, line.getX1(), line.getY1(), w, h, width, height);
 		});	
 	}
 	
 	protected void drawCantor(Graphics g, int width, int height) {
 		Cantor cantor = new Cantor(10, 10, width-10, 10, 50);
 		
-		cantor.paint(line->{
-			drawLine(g, line.getStart().getX(), line.getStart().getY(), line.getEnd().getX(), line.getEnd().getY(), width, height);
-		});
+		cantor.paint(line->drawLine(g, line.getX1(), line.getY1(), line.getX2(), line.getY2(), width, height));
+	}
+	
+	protected void drawKochSnowflake(Graphics g, int width, int height) {
+		g.setColor(Color.YELLOW);
+		int i=10;
+		KochSnowflake snowflake = new KochSnowflake(280, 10, 164.5, 210.0, i);
+		
+		snowflake.paint(line->drawLine(g, line.getX1(), line.getY1(), line.getX2(), line.getY2(), width, height));		
+		
+		snowflake = new KochSnowflake(164.5, 210, 395.5, 210.0, i);
+		
+		snowflake.paint(line->drawLine(g, line.getX1(), line.getY1(), line.getX2(), line.getY2(), width, height));
+		
+		snowflake = new KochSnowflake(395.5, 210, 280, 10, i);
+		
+		snowflake.paint(line->drawLine(g, line.getX1(), line.getY1(), line.getX2(), line.getY2(), width, height));				
 	}
 }
