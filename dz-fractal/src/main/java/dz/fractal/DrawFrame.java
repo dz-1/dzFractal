@@ -6,6 +6,7 @@ import java.awt.Graphics;
 
 import dz.fractal.recursive.Cantor;
 import dz.fractal.recursive.Example;
+import dz.fractal.recursive.Koch;
 import dz.fractal.recursive.KochSnowflake;
 
 @SuppressWarnings("serial")
@@ -13,7 +14,7 @@ public class DrawFrame extends Frame {
 	private final static Color[] RAIN_BOW = {Color.RED, Color.ORANGE, Color.YELLOW, Color.GREEN, Color.BLUE, new Color(75,0,130), new Color(102,0,153)};
 	
 	public void paint(Graphics g) {
-		drawKochSnowflake(g, getWidth(), getHeight());
+		drawKoch(g, getWidth(), getHeight());
 	}
 	
 	protected void drawDot(Graphics g, double x, double y, int w, int h, int width, int height) {
@@ -63,5 +64,13 @@ public class DrawFrame extends Frame {
 		snowflake = new KochSnowflake(395.5, 210, 280, 10, i);
 		
 		snowflake.paint(line->drawLine(g, line.getX1(), line.getY1(), line.getX2(), line.getY2(), width, height));				
+	}
+	
+	protected void drawKoch(Graphics g, int width, int height) {
+		g.setColor(Color.YELLOW);
+		int i=2;
+		
+		Koch koch = new Koch(100, 0, 1780, 0, i);
+		koch.paint(line->drawLine(g, line.getX1(), line.getY1(), line.getX2(), line.getY2(), width, height));
 	}
 }
